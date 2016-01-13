@@ -46,6 +46,8 @@ import com.l2jmobius.gameserver.network.serverpackets.ExUseSharedGroupItem;
 import com.l2jmobius.gameserver.network.serverpackets.ItemList;
 import com.l2jmobius.gameserver.network.serverpackets.SystemMessage;
 
+import net.sf.eventengine.EventEngineManager;
+
 public final class UseItem extends L2GameClientPacket
 {
 	private static final String _C__19_USEITEM = "[C] 19 UseItem";
@@ -168,6 +170,12 @@ public final class UseItem extends L2GameClientPacket
 					}
 				}
 			}
+		}
+		
+		// L2J EventEngine
+		if (EventEngineManager.getInstance().listenerOnUseItem(activeChar, item.getItem()))
+		{
+			return;
 		}
 		
 		// If the item has reuse time and it has not passed.

@@ -42,6 +42,8 @@ import com.l2jmobius.gameserver.network.serverpackets.L2GameServerPacket;
 import com.l2jmobius.gameserver.network.serverpackets.SkillCoolTime;
 import com.l2jmobius.gameserver.network.serverpackets.SystemMessage;
 
+import net.sf.eventengine.EventEngineManager;
+
 /**
  * @author godson, GodKratos, Pere, DS
  */
@@ -154,6 +156,12 @@ public abstract class AbstractOlympiadGame
 			sm = SystemMessage.getSystemMessage(SystemMessageId.C1_DOES_NOT_MEET_THE_PARTICIPATION_REQUIREMENTS_AS_THE_INVENTORY_WEIGHT_SLOT_IS_FILLED_BEYOND_80);
 			sm.addPcName(player);
 			player.sendPacket(sm);
+			return SystemMessage.getSystemMessage(SystemMessageId.YOUR_OPPONENT_DOES_NOT_MEET_THE_REQUIREMENTS_TO_DO_BATTLE);
+		}
+		
+		// L2J EventEngine
+		if (EventEngineManager.getInstance().isPlayableInEvent(player))
+		{
 			return SystemMessage.getSystemMessage(SystemMessageId.YOUR_OPPONENT_DOES_NOT_MEET_THE_REQUIREMENTS_TO_DO_BATTLE);
 		}
 		
